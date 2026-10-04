@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Portfolio của Nguyễn Tá Thọ — sinh viên Công nghệ thông tin, yêu thích lập trình web và xây dựng sản phẩm số.">
+  <title>Nguyễn Tá Thọ — Web Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --panel: #0b1928;
+      --panel-light: #102235;
+      --text: #eaf3f8;
+      --muted: #9aafbf;
+      --line: rgba(172, 207, 226, .13);
+      --cyan: #52e0d0;
+      --blue: #63a7ff;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+      --width: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body {
+      margin: 0;
+      overflow-x: clip;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 79% 8%, rgba(23, 100, 138, .15), transparent 34rem),
+        radial-gradient(ellipse at 2% 53%, rgba(24, 92, 107, .1), transparent 27rem),
+        var(--bg);
+      font-family: var(--sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--width), calc(100% - 48px)); margin: 0 auto; }
+    .mono { font-family: var(--mono); }
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--cyan);
+      font: 500 12px var(--mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--cyan); }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(172, 207, 226, .08);
+      background: rgba(7, 17, 31, .84);
+      backdrop-filter: blur(18px);
+    }
+    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font: 500 15px var(--mono); letter-spacing: -.04em; }
+    .brand span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 34px; color: #b3c4d0; font-size: 12px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--cyan); }
+    .nav-cta { border: 1px solid rgba(82, 224, 208, .42); border-radius: 6px; padding: 9px 14px; color: var(--cyan); }
+    .menu-toggle { display: none; color: var(--text); border: 1px solid var(--line); background: transparent; border-radius: 7px; padding: 8px 11px; }
+
+    .hero { min-height: 650px; display: grid; grid-template-columns: 1.07fr .93fr; align-items: center; gap: 44px; padding-top: 62px; padding-bottom: 82px; overflow: clip; }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero h1 { max-width: 650px; margin: 24px 0 19px; font-size: clamp(44px, 6.4vw, 76px); line-height: 1.08; letter-spacing: -.07em; }
+    .hero h1 .name { display: block; color: var(--cyan); }
+    .hero h1 .role { display: block; font-size: .47em; letter-spacing: -.045em; font-weight: 600; color: #c0d0dc; margin-top: 15px; }
+    .hero-copy > p { max-width: 540px; color: var(--muted); font-size: 15px; line-height: 1.9; margin: 0; }
+    .hero-actions { display: flex; align-items: center; gap: 13px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 17px; border-radius: 6px; font-size: 12px; font-weight: 700; transition: transform .2s, background .2s, border-color .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #06201f; background: var(--cyan); }
+    .button-primary:hover { background: #78f1e3; }
+    .button-secondary { border: 1px solid var(--line); color: #dce8ee; }
+    .button-secondary:hover { border-color: rgba(82, 224, 208, .5); }
+    .arrow { font-size: 16px; line-height: 1; }
+    .hero-meta { margin-top: 34px; display: flex; align-items: center; gap: 9px; color: #a5b6c3; font: 11px var(--mono); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 13px rgba(82, 224, 208, .75); }
+    .hero-visual { min-height: 455px; position: relative; display: grid; place-items: center; }
+    .portrait-frame { width: min(365px, 76%); aspect-ratio: .8; position: relative; transform: rotate(2.5deg); border: 1px solid rgba(91, 211, 211, .35); border-radius: 10px; padding: 10px; background: linear-gradient(145deg, rgba(82, 224, 208, .14), rgba(66, 119, 174, .05)); box-shadow: 0 24px 90px rgba(0, 0, 0, .32); }
+    .portrait-frame::before { content: ""; position: absolute; inset: 15px -16px -16px 16px; border: 1px solid rgba(82, 224, 208, .16); border-radius: 10px; z-index: -1; }
+    .portrait-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 48% center; border-radius: 5px; filter: saturate(.84); }
+    .photo-label { position: absolute; left: -38px; bottom: 42px; padding: 11px 15px; border: 1px solid var(--line); border-radius: 6px; background: rgba(7, 17, 31, .92); transform: rotate(-2.5deg); }
+    .photo-label span { display: block; color: var(--muted); font: 10px var(--mono); }
+    .photo-label strong { display: block; margin-top: 3px; font-size: 12px; }
+    .code-card { position: absolute; top: 31px; right: -1px; width: 183px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(10, 24, 39, .95); box-shadow: 0 15px 45px rgba(0, 0, 0, .3); font: 10px/1.9 var(--mono); }
+    .code-top { display: flex; gap: 5px; padding-bottom: 9px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .code-top i { width: 6px; height: 6px; border-radius: 50%; background: #396071; }
+    .code-top i:first-child { background: #f17f83; }
+    .code-top i:nth-child(2) { background: #e8c66a; }
+    .code-top i:nth-child(3) { background: var(--cyan); }
+    .code-key { color: #63a7ff; }
+    .code-value { color: #d7e5eb; }
+    .code-accent { color: var(--cyan); }
+    .orbit { position: absolute; z-index: -2; width: 440px; height: 440px; border: 1px solid rgba(82, 224, 208, .08); border-radius: 50%; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid rgba(82, 224, 208, .06); border-radius: 50%; }
+    .orbit::before { inset: 35px; }
+    .orbit::after { inset: 75px; }
+
+    .section { padding: 94px 0; border-top: 1px solid rgba(172, 207, 226, .08); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 22px; margin-bottom: 35px; }
+    .section h2 { margin: 12px 0 0; font-size: clamp(30px, 4vw, 43px); line-height: 1.2; letter-spacing: -.055em; }
+    .section-heading > p { max-width: 370px; color: var(--muted); font-size: 13px; margin: 0 0 3px; }
+    .about-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 18px; }
+    .about-card { border: 1px solid var(--line); border-radius: 9px; background: linear-gradient(145deg, rgba(16, 34, 53, .82), rgba(10, 23, 37, .82)); padding: 27px; }
+    .about-card p { margin: 0; color: #aec0cc; font-size: 14px; line-height: 1.95; }
+    .about-card p + p { margin-top: 15px; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .fact { padding: 15px 8px 15px 0; border-bottom: 1px solid var(--line); }
+    .fact:nth-last-child(-n+2) { border-bottom: 0; }
+    .fact span { display: block; color: #7f98a9; font: 10px var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+    .fact strong { display: block; margin-top: 5px; color: #e0eaf0; font-size: 12px; font-weight: 600; }
+
+    .skill-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+    .skill-card { min-height: 176px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: rgba(11, 25, 40, .7); transition: transform .22s, border-color .22s, background .22s; }
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(82, 224, 208, .36); background: rgba(16, 34, 53, .9); }
+    .skill-icon { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(82, 224, 208, .21); border-radius: 7px; color: var(--cyan); font: 12px var(--mono); }
+    .skill-card h3 { margin: 16px 0 7px; font-size: 14px; letter-spacing: -.02em; }
+    .skill-card p { margin: 0; color: #91a7b6; font-size: 11px; line-height: 1.8; }
+    .tool-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tool { color: #aac0cd; padding: 6px 10px; border: 1px solid var(--line); border-radius: 5px; font: 10px var(--mono); }
+
+    .journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .journey-card { min-height: 200px; padding: 25px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); position: relative; overflow: hidden; }
+    .journey-card::after { content: ""; position: absolute; width: 150px; height: 150px; border: 1px solid rgba(82, 224, 208, .12); border-radius: 50%; right: -48px; bottom: -76px; box-shadow: 0 0 0 18px rgba(82, 224, 208, .025), 0 0 0 38px rgba(82, 224, 208, .02); }
+    .journey-date { color: var(--cyan); font: 10px var(--mono); }
+    .journey-card h3 { margin: 14px 0 7px; font-size: 18px; letter-spacing: -.04em; }
+    .journey-card p { max-width: 405px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .journey-tag { display: inline-flex; margin-top: 18px; color: #a9c5d3; font: 10px var(--mono); }
+
+    .life-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .life-card { min-height: 190px; padding: 21px; border: 1px solid var(--line); border-radius: 8px; background: linear-gradient(145deg, #0d1d2c, #0a1725); }
+    .life-num { color: rgba(82, 224, 208, .72); font: 10px var(--mono); }
+    .life-card h3 { margin: 24px 0 8px; font-size: 16px; }
+    .life-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .gallery-grid { display: grid; grid-template-columns: 1.2fr .8fr; grid-template-rows: 165px 165px; gap: 13px; }
+    .gallery-item { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-light); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .45s; filter: saturate(.8); }
+    .gallery-item:first-child img { object-position: center 59%; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item figcaption { position: absolute; inset: auto 0 0; padding: 28px 16px 13px; color: #edf5f8; background: linear-gradient(transparent, rgba(3, 10, 17, .82)); font-size: 11px; }
+    figure { margin: 0; }
+    .contact-panel { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 33px; border: 1px solid rgba(82, 224, 208, .2); border-radius: 10px; background: radial-gradient(ellipse at 100% 0%, rgba(82, 224, 208, .09), transparent 50%), #0b1928; }
+    .contact-panel h2 { margin-top: 12px; font-size: clamp(26px, 4vw, 38px); }
+    .contact-panel p { color: var(--muted); font-size: 12px; margin: 9px 0 0; }
+    .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 9px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 6px; color: #d7e6ec; font-size: 11px; transition: border-color .2s, color .2s; }
+    .contact-link:hover { border-color: var(--cyan); color: var(--cyan); }
+    .contact-link svg { width: 15px; height: 15px; }
+    footer { padding: 25px 0 30px; border-top: 1px solid rgba(172, 207, 226, .08); color: #8094a2; font: 10px var(--mono); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+    .footer-inner a { color: #a9beca; }
+    .footer-inner a:hover { color: var(--cyan); }
+    .reveal { opacity: 0; transform: translateY(17px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    @media (max-width: 800px) {
+      .container { width: min(var(--width), calc(100% - 36px)); }
+      .hero { min-height: 0; grid-template-columns: 1fr .82fr; gap: 12px; padding-top: 70px; padding-bottom: 68px; }
+      .hero h1 { font-size: clamp(45px, 8vw, 65px); }
+      .hero-visual { min-height: 380px; }
+      .portrait-frame { width: 82%; }
+      .code-card { width: 158px; right: -9px; top: 20px; }
+      .photo-label { left: -21px; bottom: 27px; }
+      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+      .section { padding: 75px 0; }
+    }
+    @media (max-width: 600px) {
+      html { scroll-padding-top: 70px; }
+      .container { width: calc(100% - 34px); }
+      .nav { height: 64px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { display: none; position: absolute; top: 63px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 17px 15px; border-bottom: 1px solid var(--line); background: rgba(7, 17, 31, .97); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 11px 3px; }
+      .nav-cta { margin-top: 5px; text-align: center; }
+      .hero { display: flex; flex-direction: column; align-items: stretch; padding-top: 62px; padding-bottom: 55px; gap: 28px; }
+      .hero h1 { font-size: clamp(46px, 13vw, 68px); }
+      .hero-copy > p { font-size: 13px; }
+      .hero-actions { flex-wrap: wrap; }
+      .hero-visual { min-height: 400px; }
+      .portrait-frame { width: min(290px, 75%); }
+      .code-card { right: 1%; top: 15px; }
+      .orbit { width: 360px; height: 360px; }
+      .section { padding: 68px 0; }
+      .section-heading { display: block; margin-bottom: 27px; }
+      .section-heading > p { margin-top: 14px; }
+      .about-grid, .journey-grid { grid-template-columns: 1fr; }
+      .about-card { padding: 21px; }
+      .skill-grid { gap: 9px; }
+      .skill-card { min-height: 165px; padding: 15px; }
+      .life-grid { grid-template-columns: 1fr; gap: 9px; }
+      .life-card { min-height: 150px; }
+      .life-card h3 { margin-top: 18px; }
+      .gallery-grid { grid-template-rows: 220px 135px; gap: 9px; }
+      .contact-panel { display: block; padding: 24px 20px; }
+      .contact-links { margin-top: 23px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Điều hướng chính">
+      <a class="brand" href="#home" aria-label="Nguyễn Tá Thọ — về đầu trang"><span>&lt;</span>ta-tho<span>/&gt;</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Mở menu">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#about">Giới thiệu</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#journey">Học tập</a>
+        <a href="#interests">Sở thích</a>
+        <a class="nav-cta" href="#contact">Kết nối <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">Portfolio cá nhân · 2026</span>
+        <h1><span class="name">Nguyễn Tá Thọ</span><span class="role">Sinh viên Công nghệ thông tin<br>định hướng Web Developer</span></h1>
+        <p>Mình đang học cách biến những dòng code thành trải nghiệm số hữu ích. Tập trung vào phát triển website, giao diện trực quan và không ngừng khám phá những công nghệ mới.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#about">Tìm hiểu về mình <span class="arrow" aria-hidden="true">↘</span></a>
+          <a class="button button-secondary" href="https://github.com/Ntttho" target="_blank" rel="noopener noreferrer">Xem GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-meta"><span class="status-dot" aria-hidden="true"></span> Đang học hỏi &amp; sẵn sàng cho cơ hội mới</div>
+      </div>
+      <div class="hero-visual" aria-label="Ảnh chân dung Nguyễn Tá Thọ">
+        <div class="orbit" aria-hidden="true"></div>
+        <div class="portrait-frame"><img src="common/avatar.jpg" alt="Nguyễn Tá Thọ chụp ảnh tại thành phố vào buổi tối" fetchpriority="high"></div>
+        <div class="photo-label"><span>HELLO, I'M</span><strong>Tá Thọ <span aria-hidden="true">✳</span></strong></div>
+        <div class="code-card" aria-hidden="true">
+          <div class="code-top"><i></i><i></i><i></i></div>
+          <div><span class="code-key">const</span> developer = {</div>
+          <div>&nbsp; name: <span class="code-value">"Tá Thọ"</span>,</div>
+          <div>&nbsp; focus: <span class="code-accent">"Web"</span>,</div>
+          <div>&nbsp; curious: <span class="code-accent">true</span></div>
+          <div>}; <span class="code-key">↗</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">01 / Về mình</span><h2>Xin chào, mình là Thọ.</h2></div>
+          <p>Một sinh viên IT yêu thích sự kết hợp giữa tư duy logic và sáng tạo.</p>
+        </div>
+        <div class="about-grid reveal">
+          <div class="about-card">
+            <p>Mình là sinh viên ngành Công nghệ thông tin tại Học viện Công nghệ Bưu chính Viễn thông. Mình quan tâm đến lập trình website và cách xây dựng những sản phẩm dễ sử dụng, chỉn chu từ giao diện đến phía máy chủ.</p>
+            <p>Hiện tại, mình đang củng cố nền tảng lập trình, thực hành qua các ý tưởng cá nhân và từng bước phát triển kỹ năng để trở thành một lập trình viên web tốt hơn mỗi ngày.</p>
+          </div>
+          <div class="about-card facts">
+            <div class="fact"><span>Họ và tên</span><strong>Nguyễn Tá Thọ</strong></div>
+            <div class="fact"><span>Ngày sinh</span><strong>14 tháng 01, 2006</strong></div>
+            <div class="fact"><span>Quê quán</span><strong>Đắk Lắk, Việt Nam</strong></div>
+            <div class="fact"><span>Lĩnh vực</span><strong>Công nghệ thông tin</strong></div>
+            <div class="fact"><span>Trường</span><strong>Học viện CNBCVT</strong></div>
+            <div class="fact"><span>Định hướng</span><strong>Lập trình website</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">02 / Công nghệ</span><h2>Những gì mình đang học.</h2></div>
+          <p>Công cụ và ngôn ngữ mình sử dụng trong quá trình học tập, thực hành.</p>
+        </div>
+        <div class="skill-grid reveal">
+          <article class="skill-card"><div class="skill-icon">BE</div><h3>Backend</h3><p>Xây dựng logic và tìm hiểu cách các thành phần phía máy chủ vận hành.</p><div class="tool-strip"><span class="tool">Java</span><span class="tool">JavaScript</span></div></article>
+          <article class="skill-card"><div class="skill-icon">FE</div><h3>Frontend</h3><p>Tạo giao diện web hiện đại, tập trung vào trải nghiệm người dùng.</p><div class="tool-strip"><span class="tool">React</span><span class="tool">TypeScript</span><span class="tool">HTML</span></div></article>
+          <article class="skill-card"><div class="skill-icon">UI</div><h3>Ứng dụng &amp; di động</h3><p>Thực hành phát triển ứng dụng đa nền tảng và giao diện desktop.</p><div class="tool-strip"><span class="tool">React Native</span><span class="tool">Java Swing</span></div></article>
+          <article class="skill-card"><div class="skill-icon">⌘</div><h3>Công cụ lập trình</h3><p>Làm quen với quản lý mã nguồn và quy trình phát triển phần mềm.</p><div class="tool-strip"><span class="tool">Git</span><span class="tool">GitHub</span><span class="tool">GitLab</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">03 / Hành trình</span><h2>Học tập &amp; định hướng.</h2></div>
+          <p>Hành trình công nghệ của mình bắt đầu bằng sự tò mò và tinh thần học hỏi.</p>
+        </div>
+        <div class="journey-grid reveal">
+          <article class="journey-card">
+            <span class="journey-date">HIỆN TẠI · SINH VIÊN</span>
+            <h3>Học viện Công nghệ Bưu chính Viễn thông</h3>
+            <p>Theo học ngành Công nghệ thông tin, xây dựng nền tảng về lập trình và phát triển phần mềm.</p>
+            <span class="journey-tag">Công nghệ thông tin</span>
+          </article>
+          <article class="journey-card">
+            <span class="journey-date">MỤC TIÊU · TỪNG BƯỚC TIẾN LÊN</span>
+            <h3>Trở thành Web Developer</h3>
+            <p>Tập trung rèn luyện frontend và backend, tạo ra các website có giao diện tốt và hoạt động ổn định.</p>
+            <span class="journey-tag">Web development · Học hỏi mỗi ngày</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="interests">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">04 / Ngoài màn hình</span><h2>Nạp năng lượng theo cách riêng.</h2></div>
+          <p>Một chút bóng đá, một góc thư viện và khoảng thời gian yên tĩnh để tập trung.</p>
+        </div>
+        <div class="life-grid reveal">
+          <article class="life-card"><span class="life-num">01 — FOOTBALL</span><h3>Manchester United &amp; CR7</h3><p>Fan Quỷ Đỏ và Cristiano Ronaldo. Bóng đá luôn là nguồn cảm hứng và niềm vui của mình.</p></article>
+          <article class="life-card"><span class="life-num">02 — ON THE PITCH</span><h3>Mê đá bóng</h3><p>Thích ra sân vận động, tận hưởng những trận bóng và tinh thần đồng đội.</p></article>
+          <article class="life-card"><span class="life-num">03 — QUIET MOMENTS</span><h3>Thư viện &amp; sự tập trung</h3><p>Thích đi thư viện, tìm một góc yên tĩnh và ngồi hàng giờ làm điều mình đang say mê.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">05 / Một vài khoảnh khắc</span><h2>Chuyện của mình.</h2></div>
+          <p>Một vài tấm ảnh cá nhân được lưu lại trên hành trình của mình.</p>
+        </div>
+        <div class="gallery-grid reveal">
+          <figure class="gallery-item"><img src="common/avatar.jpg" alt="Tá Thọ trong chuyến đi buổi tối" loading="lazy"><figcaption>Một buổi tối đáng nhớ.</figcaption></figure>
+          <figure class="gallery-item"><img src="common/WIN_20260927_11_56_08_Pro.jpg" alt="Tá Thọ trong màu áo Manchester United" loading="lazy"><figcaption>Luôn là màu áo đỏ.</figcaption></figure>
+          <figure class="gallery-item"><img src="common/cosplay anh bủ.png" alt="Một khoảnh khắc đời thường của Tá Thọ" loading="lazy"><figcaption>Những khoảnh khắc rất đời thường.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div><span class="eyebrow">06 / Kết nối</span><h2>Cùng trò chuyện nhé.</h2><p>Mình luôn sẵn sàng kết nối, học hỏi và khám phá những cơ hội mới.</p></div>
+          <div class="contact-links">
+            <a class="contact-link" href="https://github.com/Ntttho" target="_blank" rel="noopener noreferrer" aria-label="GitHub của Nguyễn Tá Thọ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.4 3.4 0 0 0-.9-2.7c3-.3 6.2-1.5 6.2-6.8a5.3 5.3 0 0 0-1.4-3.7 4.9 4.9 0 0 0-.1-3.7s-1.2-.4-3.9 1.4a13.5 13.5 0 0 0-7 0C5.2.8 4 .2 4 .2a4.9 4.9 0 0 0-.1 3.7 5.3 5.3 0 0 0-1.4 3.7c0 5.3 3.2 6.5 6.2 6.8a3.4 3.4 0 0 0-.9 2.7V22"/></svg>
+              GitHub
+            </a>
+            <a class="contact-link" href="https://www.facebook.com/TaTho.UnExisting" target="_blank" rel="noopener noreferrer" aria-label="Facebook của Nguyễn Tá Thọ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v5h4v-5h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg>
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner"><span>© <span id="year">2026</span> Nguyễn Tá Thọ · Được làm bằng sự tò mò và một chút caffeine.</span><a href="#home">Lên đầu trang ↑</a></div>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Mở menu" : "Đóng menu");
+      navLinks.classList.toggle("open", !isOpen);
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Mở menu");
+      });
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
+    } else {
+      document.querySelectorAll(".reveal").forEach((item) => item.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>
