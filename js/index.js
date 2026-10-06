@@ -13,3 +13,4 @@ function constructor(ten, tuoi, diachi){
     console.log(ten, tuoi, diachi);
     
 }
+// now will use git rebase to get commit constructor
