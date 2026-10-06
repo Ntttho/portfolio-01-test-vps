@@ -8,3 +8,8 @@ print(int)
 function xinchao(ten){
     console.log("xin chao " + ten )
 }
+
+function constructor(ten, tuoi, diachi){
+    console.log(ten, tuoi, diachi);
+    
+}
